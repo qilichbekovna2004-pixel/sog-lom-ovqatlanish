@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profil - Salomat Ovqat</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/profile.css">
+    <link rel="icon" type="image/x-icon" href="images/favicon.ico">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-success">
+        <div class="container">
+            <a class="navbar-brand" href="index.html">
+                <i class="fas fa-apple-alt"></i> Salomat Ovqat
+            </a>
+            <div class="navbar-nav ms-auto">
+                <a class="nav-link" href="index.html">
+                    <i class="fas fa-arrow-left"></i> Asosiy Sahifa
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Profile Section -->
+    <div class="container py-5">
+        <div class="row">
+            <!-- Profile Sidebar -->
+            <div class="col-md-4">
+                <div class="card mb-4">
+                    <div class="card-body text-center">
+                        <img src="" 
+                             alt="Profile" class="rounded-circle mb-3" width="150" height="150">
+                        <h4 id="profileName">Foydalanuvchi</h4>
+                        <p class="text-muted" id="profileEmail">email@example.com</p>
+                        <div class="d-grid gap-2">
+                            <button class="btn btn-outline-success" id="editProfileBtn">
+                                <i class="fas fa-edit"></i> Profilni Tahrirlash
+                            </button>
+                            <button class="btn btn-outline-danger" id="logoutBtn">
+                                <i class="fas fa-sign-out-alt"></i> Chiqish
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Daily Stats -->
+                <div class="card">
+                    <div class="card-header bg-info text-white">
+                        <h5 class="mb-0"><i class="fas fa-chart-line"></i> Bugungi Statistika</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="text-center mb-3">
+                            <div class="display-6 text-success" id="dailyCalories">0</div>
+                            <small>Qolgan Kaloriya</small>
+                        </div>
+                        <div class="progress mb-3" style="height: 20px;">
+                            <div class="progress-bar bg-success" id="calorieProgress" style="width: 0%"></div>
+                        </div>
+                        <p class="mb-1">Jami kaloriya: <span id="totalCalories">0</span> kcal</p>
+                        <p class="mb-1">Iste'mol qilingan: <span id="consumedCalories">0</span> kcal</p>
+                        <p>Maqsad: <span id="goalCalories">2000</span> kcal</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Main Content -->
+            <div class="col-md-8">
+                <!-- Edit Profile Modal -->
+                <div class="modal fade" id="editProfileModal" tabindex="-1">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header bg-success text-white">
+                                <h5 class="modal-title">Profilni Tahrirlash</h5>
+                                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                            </div>
+                            <div class="modal-body">
+                                <form id="editProfileForm">
+                                    <div class="mb-3">
+                                        <label class="form-label">Ism</label>
+                                        <input type="text" class="form-control" id="editName" required>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label class="form-label">Email</label>
+                                        <input type="email" class="form-control" id="editEmail" required>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label class="form-label">Yangi Parol (agar o'zgartirmoqchi bo'lsangiz)</label>
+                                        <input type="password" class="form-control" id="editPassword">
+                                    </div>
+                                    <div class="mb-3">
+                                        <label class="form-label">Jins</label>
+                                        <select class="form-select" id="editGender">
+                                            <option value="male">Erkak</option>
+                                            <option value="female">Ayol</option>
+                                        </select>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-6 mb-3">
+                                            <label class="form-label">Bo'y (sm)</label>
+                                            <input type="number" class="form-control" id="editHeight">
+                                        </div>
+                                        <div class="col-md-6 mb-3">
+                                            <label class="form-label">Vazn (kg)</label>
+                                            <input type="number" class="form-control" id="editWeight">
+                                        </div>
+                                    </div>
+                                    <button type="submit" class="btn btn-success">Saqlash</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Saved Recipes -->
+                <div class="card mb-4">
+                    <div class="card-header bg-success text-white">
+                        <h5 class="mb-0"><i class="fas fa-bookmark"></i> Saqlangan Retseptlar</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="row" id="profileSavedRecipes">
+                            <!-- Saved recipes will be loaded here -->
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Daily Food Log -->
+                <div class="card mb-4">
+                    <div class="card-header bg-info text-white">
+                        <h5 class="mb-0"><i class="fas fa-utensils"></i> Bugungi Ovqatlar</h5>
+                    </div>
+                    <div class="card-body">
+                        <form id="addFoodForm" class="row g-3 mb-4">
+                            <div class="col-md-6">
+                                <input type="text" class="form-control" id="foodName" placeholder="Ovqat nomi" required>
+                            </div>
+                            <div class="col-md-4">
+                                <input type="number" class="form-control" id="foodCalories" placeholder="Kaloriya" required>
+                            </div>
+                            <div class="col-md-2">
+                                <button type="submit" class="btn btn-success w-100">Qo'shish</button>
+                            </div>
+                        </form>
+                        <div class="table-responsive">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th>Ovqat</th>
+                                        <th>Kaloriya</th>
+                                        <th>Vaqt</th>
+                                        <th>Amallar</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="foodLog">
+                                    <!-- Food items will be loaded here -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Meal History -->
+                <div class="card">
+                    <div class="card-header bg-warning text-white">
+                        <h5 class="mb-0"><i class="fas fa-history"></i> So'nggi Ovqatlar</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th>Sana</th>
+                                        <th>Ovqatlar Soni</th>
+                                        <th>Jami Kaloriya</th>
+                                        <th>Holat</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="mealHistory">
+                                    <!-- History will be loaded here -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-dark text-white py-3 mt-5">
+        <div class="container text-center">
+            <p>&copy; 2024 Salomat Ovqat. Barcha huquqlar himoyalangan.</p>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="js/database.js"></script>
+    <script src="js/profile.js"></script>
+</body>
+</html>
